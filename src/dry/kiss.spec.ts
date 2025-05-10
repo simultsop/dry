@@ -9,4 +9,22 @@ describe('Kiss.vue', () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.text()).toContain('Keep It Stupid Simple — Principle');
   });
+
+  it('renders default slot content', () => {
+    const wrapper = mount(Kiss, {
+      slots: {
+        default: 'Test Slot Content',
+      },
+    });
+    expect(wrapper.text()).not.toContain('Test Slot Content');
+  });
+
+  it('renders default slot content', () => {
+    const wrapper = mount(Kiss, {
+      slots: {
+        kiss: 'Test Slot Content',
+      },
+    });
+    expect(wrapper.text()).toContain('Test Slot Content');
+  });
 });
