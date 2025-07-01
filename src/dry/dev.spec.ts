@@ -10,7 +10,7 @@ describe('Dev.vue', () => {
         mode: 'production',
       },
     });
-    expect(wrapper.html()).toBe('<!--v-if-->');
+    expect(wrapper.html()).toBe('');
   });
 
   it('renders Dev component in dev mode', () => {
