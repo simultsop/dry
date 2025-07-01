@@ -6,25 +6,17 @@ import Dev from './Dev.vue';
 describe('Dev.vue', () => {
   it('does not render Dev component in production mode', () => {
     const wrapper = mount(Dev, {
-      global: {
-        mocks: {
-          $env: {
-            mode: 'production',
-          },
-        },
+      props: {
+        mode: 'production',
       },
     });
-    expect(wrapper.html()).toBe('');
+    expect(wrapper.html()).toBe('<!--v-if-->');
   });
 
   it('renders Dev component in dev mode', () => {
     const wrapper = mount(Dev, {
-      global: {
-        mocks: {
-          $env: {
-            mode: 'development',
-          },
-        },
+      props: {
+        mode: 'development',
       },
     });
     expect(wrapper.text()).toContain('Dev Component');

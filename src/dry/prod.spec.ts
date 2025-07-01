@@ -6,25 +6,17 @@ import Prod from './Prod.vue';
 describe('Prod.vue', () => {
   it('does not render Prod component in development mode', () => {
     const wrapper = mount(Prod, {
-      global: {
-        mocks: {
-          $env: {
-            mode: 'development',
-          },
-        },
+      props: {
+        mode: 'development',
       },
     });
-    expect(wrapper.exists()).toBe(false);
+    expect(wrapper.html()).toBe('<!--v-if-->');
   });
 
   it('renders Prod component in prod mode', () => {
     const wrapper = mount(Prod, {
-      global: {
-        mocks: {
-          $env: {
-            mode: 'production',
-          },
-        },
+      props: {
+        mode: 'production',
       },
     });
     expect(wrapper.exists()).toBe(true);
