@@ -14,7 +14,7 @@ describe('Dev.vue', () => {
         },
       },
     });
-    expect(wrapper.exists()).toBe(false);
+    expect(wrapper.html()).toBe('');
   });
 
   it('renders Dev component in dev mode', () => {
@@ -27,7 +27,6 @@ describe('Dev.vue', () => {
         },
       },
     });
-    expect(wrapper.exists()).toBe(true);
     expect(wrapper.text()).toContain('Dev Component');
   });
 });
