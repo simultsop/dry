@@ -21,9 +21,5 @@
   </kiss> <br/>
   <dev>This is rendered only in dev</dev> <br/>
   <prod>This is rendered only in prod</prod> <br/>
-  
-  <h3>Inspect Component Example:</h3>
-  
-  <p>Object with string, number, boolean, null, and function:</p>
   <Inspect :data="inspectExample" /> <br/>
 </template>
