@@ -1,30 +1,31 @@
-<script setup lang="ts">
-import { h, computed } from 'vue'
+<script lang="ts">
+import { h, defineComponent, computed } from 'vue'
 
-const props = withDefaults(defineProps<{
-  tag?: 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'meta' | 'meter' | 'nav' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'tbody' | 'td' | 'template' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr'
-  mode?: 'development' | 'production'
-}>(), {
-  tag: 'div'
-})
+export default defineComponent({
+  name: 'Prod',
+  props: {
+    tag: {
+      type: String,
+      default: 'div',
+      validator: (value: string) => ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr'].includes(value)
+    },
+    mode: {
+      type: String,
+      validator: (value: string) => ['development', 'production'].includes(value)
+    }
+  },
+  setup(props, { slots }) {
+    const isProd = computed(() => {
+      // Use prop if provided (for testing), otherwise use Vite's env
+      if (props.mode !== undefined) {
+        return props.mode === 'production'
+      }
+      return import.meta.env.PROD
+    })
 
-const slots = defineSlots<{
-  default(): any
-}>()
-
-const isProd = computed(() => {
-  // Use prop if provided (for testing), otherwise use Vite's env
-  if (props.mode !== undefined) {
-    return props.mode === 'production'
+    return () => {
+      return isProd.value ? h(props.tag, {}, slots.default ? slots.default() : 'Prod Component') : null
+    }
   }
-  return import.meta.env.PROD
-})
-
-const renderComponent = computed(() => {
-  return isProd.value ? h(props.tag, {}, slots.default ? slots.default() : 'Prod Component') : null
 })
 </script>
-
-<template>
-  <component :is="renderComponent" />
-</template>
