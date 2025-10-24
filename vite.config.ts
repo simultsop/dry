@@ -9,11 +9,22 @@ export default defineConfig({
   resolve: {
     alias: [{ find: '@', replacement: '/src/' }],
   },
-  plugins: [dts(), vue()],
+  plugins: [
+    vue(),
+    dts({
+      outDir: 'dist',
+      insertTypesEntry: true,
+      tsconfigPath: './tsconfig.build.json',
+      include: ['src/**/*.ts', 'src/**/*.vue'],
+      rollupTypes: true,
+      copyDtsFiles: true,
+    }),
+  ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: resolve(__dirname, 'src/lib.ts'),
       name: packageJson.name,
+      fileName: () => 'lib.js',
       formats: ['es'],
     },
     rollupOptions: {
@@ -22,6 +33,9 @@ export default defineConfig({
           vue: 'Vue',
         },
       },
-    },
-  },
+      external: (id: string) => {
+        return id === 'vue' || id.startsWith('vue/')
+      }
+    }
+  }
 })
