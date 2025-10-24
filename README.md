@@ -2,7 +2,7 @@
 
 DRY (Don't Repeat Yourself) Components is a collection of bare minimum utility components for Vue.js applications.
 
-## Installation {#installation}
+## Installation
 
 Install the DRY components package via npm:
 
@@ -10,7 +10,7 @@ Install the DRY components package via npm:
 npm install @s32n/dry
 ```
 
-## Usage {#usage}
+## Usage
 
 Import and use DRY components in your Vue.js application:
 
@@ -28,9 +28,9 @@ export default defineComponent({
 })
 ```
 
-## Components {#components}
+## Components
 
-### Dev {#dev}
+### Dev
 
 Environment based rendering
 
@@ -48,7 +48,7 @@ import { Dev } from '@simultsop/dry'
 </script>
 ```
 
-### Prod {#prod}
+### Prod
 
 Environment based rendering
 
@@ -66,7 +66,7 @@ import { Prod } from '@s32n/dry'
 </script>
 ```
 
-### Inspect {#inspect}
+### Inspect
 
 Inspect data and alike
 
