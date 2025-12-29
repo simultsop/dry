@@ -44,7 +44,7 @@ Environment based rendering
 </template>
 
 <script setup>
-import { Dev } from '@simultsop/dry'
+import { Dev } from '@s32n/dry'
 </script>
 ```
 
